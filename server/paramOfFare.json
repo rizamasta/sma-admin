@@ -1,0 +1,82 @@
+{
+    "UserName"  : "SA3ADGM",
+    "Password"  : "SA3ADGMGOS2011",
+    "int"       : 0,
+    "inttype"   : 0,
+    "nopaxa"    : 1,
+    "nopaxc"    : 2,
+    "nopaxi"    : 1,
+    "srvclss"   : "eco",
+    "ctfr"      : "CGK",
+    "ctto"      : "SUB",
+    "ddate"     : "25APR15",
+    "trip"      : "o",
+    "dentry"    : "A25APR15CGKSUB/GA#",
+    "dlineno"   : "0101",
+    "dclass"    : "Y",
+    "Selection" : 
+        {
+            "dep" : 
+                {
+                    "0" : 
+                        {
+                            "0" : "0101",
+                            "1" : "CGK SUB",
+                            "2" : "0530 0705",
+                            "3" : "302",
+                            "4" : "Y",
+                            "5" : "25APR15",
+                            "6" : "9",
+                            "7" : "2015-04-25",
+                            "8" : "05:30:00",
+                            "9" : "2015-04-25",
+                            "10" : "07:05:00"
+                        }
+
+                },
+
+            "airportDetail" : 
+                {
+                    "CGK" : 
+                        {
+                            "0" : "CGK",
+                            "1" : "Soekarno-hatta Intnl Apt",
+                            "2" : "JKT",
+                            "3" : "Jakarta",
+                            "4" : "ID",
+                            "5" : "Indonesia"
+                        },
+
+                    "SUB" : 
+                        {
+                            "0" : "SUB",
+                            "1" : "Juanda Intl Apt",
+                            "2" : "SUB",
+                            "3" : "Surabaya",
+                            "4" : "ID",
+                            "5" : "INDONESIA"
+                        }
+
+                }
+
+        },
+
+    "alteaRequestLogId" : "1426487203-be30bad30ee98cab2ce981dac3cf66852cfc399e",
+    "channel" : "gos",
+    "format" : "release15",
+    "agtctc" : "021",
+    "userid" : "SA3ADGM",
+    "agtbo" : "JKT",
+    "pos" : "JKT",
+    "email" : "sahir@myindo.co.id",
+    "komdom" : 3,
+    "komint" : 5,
+    "disc_code" : "",
+    "disc_rate" : "0",
+    "pkp" : 0,
+    "tripCat" : "P",
+    "trip_cat" : "P",
+    "pph" : "2.00",
+    "type_agent" : "A",
+    "typeAgent" : "A"
+}

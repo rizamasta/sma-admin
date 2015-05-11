@@ -1,0 +1,16 @@
+doctype html
+html(lang="en", data-ng-app="angle")
+  link(type='image/png' href='app/img/favicon.png' rel='shortcut icon')
+  script(language="javascript").
+   document.onmousedown=disableclick;
+   status="Right Click Disabled";
+
+
+  head
+    include views/partials/_head
+  
+  body(data-ng-class="{ 'layout-fixed' : app.layout.isFixed, 'aside-collapsed' : app.layout.isCollapsed, 'layout-boxed' : app.layout.isBoxed }",oncontextmenu="return false",onLoad="renderDate()")
+    
+    .wrapper(data-ui-view="", data-autoscroll='false', data-ng-class="mainViewAnimation")
+
+    include views/partials/_scripts

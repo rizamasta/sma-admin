@@ -1,0 +1,39 @@
+// START Top Navbar
+include jam.html
+nav.navbar.topnavbar(role='navigation')
+    // START navbar header
+    .navbar-header
+      a.navbar-brand(href='#/') 
+        .brand-logo 
+          img.img-responsive(src="app/img/logo.png", alt="App Logo")
+        .brand-logo-collapsed 
+          img.img-responsive(src="app/img/plane.png",width="80%" ,alt="App Logo")
+    // END navbar header
+
+    // START Nav wrapper
+    .nav-wrapper
+      // START Left navbar
+
+      // END Left navbar
+
+      // START Right Navbar
+      ul.nav.navbar-nav.navbar-right
+        // Search icon
+        li
+          a(href='#', search-open)
+            #jam.div.text-uppercase.pull-right
+        // START Contacts button
+        
+        // END Contacts menu
+      // END Right Navbar
+    // END Nav wrapper
+    
+    // START Search form
+    form.navbar-form(role='search', action="search.html")
+      .form-group.has-feedback
+        input.form-control(type='text', placeholder="{{ 'topbar.search.PLACEHOLDER' | translate }}")
+        .fa.fa-times.form-control-feedback(search-dismiss)
+      button.hidden.btn.btn-default(type='submit') Submit
+    // END Search form
+
+// END Top Navbar

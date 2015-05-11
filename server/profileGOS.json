@@ -1,0 +1,26 @@
+[
+	{
+		"Profile":
+		{
+			"username"	:	"SA3ADGM",
+			"nama"		:	"Test Local Sahir",
+			"pj"		:	"Mr. Sahir",
+			"email"		:	"sahir@myindo.co.id",
+			"telp"		:	"021",
+			"hp"		:	"0892312312",
+			"alamat"	:	"GCC soekarno hatta lantai 1 jakarta",
+			"fax"    	:   "",
+			"komisi"	:	{ "domestik": "3%",
+							  "internasional": "5%"},
+			"target"    :	"30,000,000.00",
+
+			"daftar"	:	"2013-02-07 17:52:57",
+			"berlaku"	:	"2013-01-01 - 2018-01-01",
+			"npwp"	:	"00.000.000.0-000.000"
+
+		}
+
+
+
+	}
+]

@@ -1,0 +1,60 @@
+{
+  "dashboard": {
+                "WELCOME": "Welcome to {{appName}}",
+                "Home"   : "Home"
+              },
+
+  "topbar": {
+              "messages": {
+                            "UNREAD": "Unread messages",
+                            "MORE": "More messages"
+                          },
+              "search": {
+                           "PLACEHOLDER": "Type and hit enter.."
+                        },
+              "notification":   {
+                                  "MORE": "More notifications"
+                                }
+            },
+  "offsidebar": {
+                    "setting": {
+                                  "SETTINGS": "Settings",
+                                  "THEMES": "Themes",
+                                  "layout": {
+                                              "FIXED": "Fixed",
+                                              "COLLAPSED": "Collapsed"
+                                            }
+                              },
+                    "chat": {
+                                  "CONNECTIONS": "Connections",
+                                  "SEARCH": "Search contacts",
+                                  "ONLINE": "ONLINE",
+                                  "OFFLINE": "OFFLINE",
+                                  "LOAD_MORE": "Load More",
+                                  "TASK_COMPLETION": "Tasks completion",
+                                  "QUOTA": "Upload Quota"
+                            }
+               },
+  "sidebar": {
+              "WELCOME": "Welcome",
+              "heading": {
+                            "HEADER": "Main Navigation",
+                            "COMPONENTS": "Components",
+                            "MORE": "More"
+                          },
+              "nav": {
+                        "Home"       : "Home",
+                        "ProfileGos"      : "GOS Profile Member",
+                        "BookFlight"      : "Book A Flight",
+                        "TransactionRev"  : "Transaction Review",
+                        "BookerManage"    : "Booker Management",
+                        "DTUManage"       : "DTU Management",
+                        "Profile"         : "My Profile",
+                        "Refrence"        : "Refrence",
+                        "Refund"          : "Refund",
+                        "Logout"          : "Logout"
+                    }
+            }
+    
+  
+}

@@ -1,0 +1,25 @@
+.block-center.mt-xl.wd-xl(ng-controller="loginController")
+  // START panel
+  .panel.panel-primary
+    .panel-heading.text-center
+      a(href="#")
+        img.block-center.img-rounded(src='app/img/logo.png', alt='Image')
+    .panel-body
+      form(role='form', ng-submit="login()", validate-form='', novalidate='').mb-lg
+        .form-group.has-feedback
+          input.form-control(type='text', placeholder='User Name', autocomplete="off", ng-model="account.username", ng-required="true")
+          span.fa.fa-envelope.form-control-feedback.text-muted
+        .form-group.has-feedback
+          input.form-control(type='password', placeholder='Password', ng-model="account.password", required)
+          span.fa.fa-lock.form-control-feedback.text-muted
+          br
+          button.btn.btn-block.btn-primary(type='submit') Login
+      .alert.alert-danger.text-center(ng-show='authMsg') {{authMsg}}
+  // END panel
+  .p-lg.text-center
+    span &copy; 
+    span(ng-bind="app.create")
+    span  -
+    span(ng-bind="app.name")
+    br
+    span(ng-bind="app.description")

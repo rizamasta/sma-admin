@@ -1,0 +1,22 @@
+[
+  
+  {
+    "text": "Home",
+    "sref": "memo.dashboard",
+    "icon":"icon-speedometer",
+    "translate":"sidebar.nav.Home"
+  },
+  {
+    "text": "Profil GOS Member",
+    "sref": "memo.gosMemberProfile",
+    "icon" : "icon-users",
+    "translate" : "sidebar.nav.ProfileGos"
+  },
+  {
+    "text" : "Logout",
+    "sref" : "login.out",
+    "icon" : "icon-logout",
+    "translate": "sidebar.nav.Logout"
+ 
+  }
+]

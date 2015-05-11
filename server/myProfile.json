@@ -1,0 +1,25 @@
+[
+	{
+		"Profile":
+		{
+			"username"	:	"SA3ADGM",
+			"nama"		:	"Mr. Sahir",
+			"email"		:	"sahir@myindo.co.id",
+			"telp"		:	"021",
+			"hp"		:	"0892312312",
+			"alamat"	:	"Jl. Alamat"
+
+		 },
+		 "Login":
+		{
+			"username"	:	"SA3ADGM",
+			"expired"	:	"07 May 2015 18:16:53",
+			"status"	:	"Active",
+			"privilegas":	"GOS ADMINISTRATOR ,GOS ONLINE TRAVEL AGENT",
+			"lastLog"	:	"",
+			"ip"		:	"172.17.3.239",
+			"lastAct"	:	"1288323623006 | date:'yyyy-MM-dd HH:mm:ss Z'"
+
+		 }
+	}
+]
