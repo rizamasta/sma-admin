@@ -3,20 +3,132 @@
   {
     "text": "Home",
     "sref": "memo.dashboard",
-    "icon":"icon-speedometer",
-    "translate":"sidebar.nav.Home"
+    "icon":"icon-speedometer"
   },
   {
-    "text": "Profil GOS Member",
-    "sref": "memo.gosMemberProfile",
-    "icon" : "icon-users",
-    "translate" : "sidebar.nav.ProfileGos"
+    "text": "PIC JRF",
+    "sref": "#",
+    "icon" : "icon-docs",
+    "submenu":[
+                {
+                  "text": "JRF Penjualan Unit",
+                  "sref": "memo.jrfUnit",
+                   "icon":"fa-shopping-cart"
+                },
+                {
+                  "text": "JRF Bengkel",
+                  "sref": "memo.jrfBengkel",
+                  "icon":"icon-wrench"
+                }
+              ]
+  },
+  {
+    "text" : "Cetak Barcode",
+    "sref" : "memo.barcode",
+    "icon" : "icon-printer"
+
+  },
+  {
+    "text"    : "Bengkel",
+    "sref"    : "#",
+    "icon"    : "icon-wrench",
+    "submenu" : [
+                    {
+                      "text": "Pembayaran Bengkel",
+                      "sref": "memo.paymentGarage",
+                      "icon": "fa-shopping-cart"
+                    },
+                    {
+                      "text": "Laporan Harian Bengkel",
+                      "sref": "memo.dailyGarageReport",
+                      "icon": "icon-wrench"
+                    }
+
+                ]
+
+  },
+  {
+    "text"    : "Master",
+    "sref"    : "#",
+    "icon"    : "icon-wallet",
+    "submenu" : [
+      {
+        "text": "Accessories",
+        "sref": "",
+        "icon": "fa-shopping-cart"
+      },
+      {
+        "text": "Subsidi Accessories",
+        "sref": "#",
+        "icon": "icon-wrench"
+      },
+      {
+        "text": "Tipe Motor",
+        "sref": "#",
+        "icon": "icon-wrench"
+      },
+      {
+        "text": "Warna Motor",
+        "sref": "#",
+        "icon": "icon-wrench"
+      },
+      {
+        "text": "Mekanik",
+        "sref": "#",
+        "icon": "icon-wrench"
+      },
+      {
+        "text": "Salesman",
+        "sref": "#",
+        "icon": "icon-wrench"
+      },
+      {
+        "text": "Biro Jasa",
+        "sref": "#",
+        "icon": "icon-wrench"
+      },
+      {
+        "text": "Leasing",
+        "sref": "#",
+        "icon": "icon-wrench"
+      },
+      {
+        "text": "Master POS",
+        "sref": "#",
+        "icon": "icon-wrench"
+      },
+      {
+        "text": "Subsidi",
+        "sref": "#",
+        "icon": "icon-wrench"
+      },
+      {
+        "text": "Daftar Subsidi",
+        "sref": "#",
+        "icon": "icon-wrench"
+      },
+      {
+        "text": "Supplier",
+        "sref": "#",
+        "icon": "icon-wrench"
+      },
+      {
+        "text": "Harga Motor",
+        "sref": "#",
+        "icon": "icon-wrench"
+      }
+
+    ]
+
+  },
+  {
+    "text" : "Distribusi Unit",
+    "sref" : "login.out",
+    "icon" : "icon-logout"
   },
   {
     "text" : "Logout",
     "sref" : "login.out",
-    "icon" : "icon-logout",
-    "translate": "sidebar.nav.Logout"
- 
+    "icon" : "icon-logout"
   }
 ]
