@@ -1358,21 +1358,23 @@ App.controller('loginController',['$rootScope','$state','$scope','$http', functi
         var urlData  = encoding_url($scope.account);
         $http({
             method: 'POST',
-            url: base_gateway('user/login.php/'),
+            url: base_gateway('account/login/'),
             data: urlData,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(data){
 
-            $scope.result = data;
+           $scope.result    = data;
 
-            if($scope.result.status){
+            if($scope.result.responseData){
                 $scope.authMsg = "";
-                localStorage['data_login']  =JSON.stringify($scope.result);
+                localStorage['data_login']  = JSON.stringify($scope.result);
                 $state.go('memo.dashboard');
+                console.log("benar");
             }
             else{
-                $scope.authMsg = data.error_msg;
+                $scope.authMsg = "Password atau Username salah";
             }
+            console.log(data);
         }).error(function(e){
             $scope.authMsg = "Error "+e;
         });
@@ -5542,7 +5544,7 @@ function base_url(url) {
   return "http://localhost/memo/"+url;
 }
 function base_gateway(url){
-  return "http://localhost/gateway/memo/app/"+url;
+  return "http://localhost:1200/"+url;
 }
 
 // To run this code, edit file 
