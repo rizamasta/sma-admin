@@ -127,6 +127,11 @@
     "icon" : "icon-logout"
   },
   {
+    "text" : "Edit User",
+    "sref" : "memo.editUser",
+    "icon" : "icon-user"
+  },
+  {
     "text" : "Logout",
     "sref" : "login.out",
     "icon" : "icon-logout"
