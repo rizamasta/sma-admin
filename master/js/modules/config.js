@@ -27,32 +27,40 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
   // defaults to dashboard
 
  // $urlRouterProvider.otherwise('/user/login');
-  $urlRouterProvider.otherwise('/memo/dashboard');
+  $urlRouterProvider.otherwise('/page/dashboard');
 
   //
   // Application Routes
   // -----------------------------------
   $stateProvider
-    .state('memo', {
-        url: '/memo',
+    .state('page', {
+        url: '/page',
         abstract: true,
         templateUrl: basepath('app.html'),
-        controller: ('AppController','authController'),
+        controller: ('authController'),
         resolve: resolveFor('fastclick', 'modernizr', 'icons', 'screenfull', 'animo', 'sparklines', 'slimscroll', 'classyloader', 'toaster', 'whirl')
     })
-    .state('memo.dashboard', {
+    .state('page.dashboard', {
         url: '/dashboard',
         title: 'Dashboard',
         templateUrl: basepath('dashboard.html'),
         resolve: resolveFor('flot-chart','flot-chart-plugins'),
         controller:'NullController'
     })
+    .state('page.keamanan', {
+          url: '/keamanan',
+          title: 'Edit User',
+          templateUrl: basepath('userChangePassword.html'),
+          resolve: resolveFor('parsley'),
+          controller:('NotificationController'&&'NullController')
+      })
     .state('login', {
         url: '/login',
-        abstract: true,
         title: 'Login',
+        abstract:true,
         templateUrl: 'app/pages/login.html',
-        controller: 'loginController'
+        esolve: resolveFor('icons','toaster', 'whirl'),
+        controller: ('loginController')
 
     })
     .state('login.user', {
@@ -60,12 +68,13 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         title: 'Login',
         templateUrl: 'app/pages/login.html',
         controller: 'loginController',
-        resolve: resolveFor('parsley')
+        resolve: resolveFor('parsley','icons','toaster', 'whirl')
     })
-    .state('login.out', {
-        url: '/logout',
+    .state('out', {
+        url: '/out',
         title: 'Logout',
-        controller: 'logoutController'
+        templateUrl: 'app/pages/logout.html',
+        controller: 'NullController'
     })
     ;
 

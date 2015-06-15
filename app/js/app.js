@@ -24,8 +24,8 @@ var App = angular.module('angle', ['ngRoute', 'ngAnimate', 'ngStorage', 'ngCooki
 
 
         $rootScope.app = {
-                name: 'MMS',
-                description: 'Metro Motor Dealer System',
+                name: 'SMA',
+                description: 'Admin Panel',
                 create:2015,
                 year: ((new Date()).getFullYear()),
                 layout: {
@@ -70,32 +70,40 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
   // defaults to dashboard
 
  // $urlRouterProvider.otherwise('/user/login');
-  $urlRouterProvider.otherwise('/memo/dashboard');
+  $urlRouterProvider.otherwise('/page/dashboard');
 
   //
   // Application Routes
   // -----------------------------------
   $stateProvider
-    .state('memo', {
-        url: '/memo',
+    .state('page', {
+        url: '/page',
         abstract: true,
         templateUrl: basepath('app.html'),
-        controller: ('AppController','authController'),
+        controller: ('authController'),
         resolve: resolveFor('fastclick', 'modernizr', 'icons', 'screenfull', 'animo', 'sparklines', 'slimscroll', 'classyloader', 'toaster', 'whirl')
     })
-    .state('memo.dashboard', {
+    .state('page.dashboard', {
         url: '/dashboard',
         title: 'Dashboard',
         templateUrl: basepath('dashboard.html'),
         resolve: resolveFor('flot-chart','flot-chart-plugins'),
         controller:'NullController'
     })
+    .state('page.keamanan', {
+          url: '/keamanan',
+          title: 'Edit User',
+          templateUrl: basepath('userChangePassword.html'),
+          resolve: resolveFor('parsley'),
+          controller:('NotificationController'&&'NullController')
+      })
     .state('login', {
         url: '/login',
-        abstract: true,
         title: 'Login',
+        abstract:true,
         templateUrl: 'app/pages/login.html',
-        controller: 'loginController'
+        esolve: resolveFor('icons','toaster', 'whirl'),
+        controller: ('loginController')
 
     })
     .state('login.user', {
@@ -103,12 +111,13 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         title: 'Login',
         templateUrl: 'app/pages/login.html',
         controller: 'loginController',
-        resolve: resolveFor('parsley')
+        resolve: resolveFor('parsley','icons','toaster', 'whirl')
     })
-    .state('login.out', {
-        url: '/logout',
+    .state('out', {
+        url: '/out',
         title: 'Logout',
-        controller: 'logoutController'
+        templateUrl: 'app/pages/logout.html',
+        controller: 'NullController'
     })
     ;
 
@@ -293,12 +302,16 @@ App
 
   })
 ;
-App.controller('authController',['$state','$scope','$http', function($state,$scope,$http){
-   // console.log("log"+localStorage['login']);
-    if(typeof(localStorage['data_login'])=="undefined"){
+App.controller('authController',['$state','$scope','$http', function($state){
+   //console.log("log"+localStorage['data_login']);
+    try{
+        var login = JSON.parse(localStorage['data_login']);
+    }
+    catch(ex){
         localStorage.clear();
         $state.go('login.user');
     }
+
 }]);
 /**=========================================================
  * Module: calendar-ui.js
@@ -1344,7 +1357,7 @@ App.controller('FormxEditableController', ['$scope', 'editableOptions', 'editabl
 /**
  * Created by rizamasta on 5/10/15.
  */
-App.controller('loginController',['$rootScope','$state','$scope','$http', function($rootScope,$state,$scope,$http){
+App.controller('loginController',['$rootScope','$state','$scope','$http','urlConfig', function($rootScope,$state,$scope,$http,urlConfig){
 
     $rootScope.currTitle = $state.current.title;
     $rootScope.pageTitle = function() {
@@ -1357,42 +1370,37 @@ App.controller('loginController',['$rootScope','$state','$scope','$http', functi
     $scope.login        = function(){
         var urlData  = encoding_url($scope.account);
         $http({
-            method: 'POST',
-            url: base_gateway('account/login/'),
-            data: urlData,
+            method  : 'POST',
+            url     : urlConfig.gateway('account/login'),
+            data    : urlData,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function(data){
-
+        }).success(function(data,message){
+           //console.log(message);
            $scope.result    = data;
 
             if($scope.result.responseData){
                 $scope.authMsg = "";
                 localStorage['data_login']  = JSON.stringify($scope.result);
-                $state.go('memo.dashboard');
-                console.log("benar");
+                $state.go('page.dashboard');
             }
             else{
-                $scope.authMsg = "Password atau Username salah";
+                $scope.authMsg = $scope.result.ErrorLogin;
             }
-            console.log(data);
+
         }).error(function(e){
             $scope.authMsg = "Error "+e;
         });
     };
+
 
 }]);
 
 /**
  * Created by rizamasta on 5/10/15.
  */
-App.controller('logoutController',['$rootScope','$state','$scope','$http', function($rootScope,$state,$scope,$http){
-   var msg =confirm('Anda ingin Logout?');
-   if(msg)
-   {
+App.controller('logoutController', ["$rootScope", "$state", function($rootScope,$state){
        localStorage.clear();
        $state.go('login.user');
-   }
-
 }]);
 
 /**=========================================================
@@ -2227,8 +2235,8 @@ App.controller('portletsController', [ '$scope', '$timeout', '$window', function
  * next to the current element (sibling)
  * Targeted elements must have [data-toggle="collapse-next"]
  =========================================================*/
-App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$location', '$http', '$timeout', 'APP_MEDIAQUERY',
-  function($rootScope, $scope, $state, $location, $http, $timeout, mq){
+App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$location', '$http', '$timeout', 'APP_MEDIAQUERY','urlConfig',
+  function($rootScope, $scope, $state, $location, $http, $timeout, mq,urlConfig){
 
     var currentState = $rootScope.$state.current.name;
     var $win = $(window);
@@ -2277,16 +2285,21 @@ App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$locatio
     };
 
     $scope.loadSidebarMenu = function() {
-
-      var menuJson = 'server/sidebar-menu.json',
-          menuURL  = menuJson + '?v=' + (new Date().getTime()); // jumps cache
-      $http.get(menuURL)
-        .success(function(items) {
-           $rootScope.menuItems = items;
-        })
-        .error(function(data, status, headers, config) {
-          alert('Failure loading menu');
-        });
+      //localStorage.clear();
+      //console.log(localStorage['data_login'].securityToken);
+      var data_login  = JSON.parse(localStorage['data_login']),
+          params      = {securityToken : data_login.securityToken};
+          $http({
+            method  :'POST',
+            url     : urlConfig.gateway('account/user-resource'),// +'?v=' + (new Date().getTime()),
+            data    : encoding_url(params),
+            headers  : {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).success(function (items) {
+            $rootScope.menuItems = items;
+          }).error(function() {
+                alert('Failure loading menu shit!');
+              });
+      
      };
 
      $scope.loadSidebarMenu();
@@ -3010,6 +3023,84 @@ App.controller('UserBlockController', ['$scope', function($scope) {
     $scope.userBlockVisible = ! $scope.userBlockVisible;
     
   });
+
+}]);
+/**
+ * Created by rizamasta on 5/12/15.
+ */
+App.controller('userChangeController', ["$state", "$scope", "$http", "toaster", "urlConfig", "$timeout", function($state,$scope,$http,toaster,urlConfig,$timeout){
+    $scope.pop = function(tipe,judul,isi) {
+        toaster.pop(tipe, judul, isi);
+    };
+
+    if(typeof(localStorage['data_login'])!="undefined") {
+        var data_login = JSON.parse(localStorage['data_login']);
+
+        $scope.formData = {
+                           username     : data_login.responseData.username,
+                           realname     : data_login.responseData.realname,
+                           valueRequire : false
+        };
+        /*if password have key*/
+        $scope.passwordPush = function(){
+            if($scope.formData.password || $scope.formData.password2){
+                $scope.formData.valueRequire = true;
+            }
+            else{
+                $scope.formData.valueRequire = false;
+            }
+        }
+        /*
+        update['username']
+         */
+        /*submit function*/
+        $scope.submit = function(){
+            if($scope.formData.password == $scope.formData.password2)
+            {
+
+                $scope.parameter    =   {
+                                            update          :{
+                                                                    username        : $scope.formData.username,
+                                                                    realname        : $scope.formData.realname
+
+
+                                                                },
+                                            securityToken   : data_login.securityToken
+                                        };
+                typeof($scope.formData.password) =="undefined"?$scope.formData.password="": $scope.parameter.update.password=$scope.formData.password;
+
+                $scope.formData.errorMsg =  "";
+                $http({
+                    method  :'POST',
+                    url     :urlConfig.gateway('account/account/'),
+                    data    :encoding_url($scope.parameter),
+                    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).success(function(data){
+                    if(data.login)
+                        {
+                            $scope.pop('wait','Ubah Password Success','Untuk keamanan, anda di logout secara otomatis.');
+                            $timeout(function(){
+                               $state.go('out');
+                            },3000)
+                        }
+                    else{
+                        $scope.pop('error','Gagal',data.messageUpdate);
+                    }
+                }).error(function(e){
+                    console.log(e);
+                });
+            }
+            else{
+                $scope.formData.errorMsg =  "Password tidak sama!";
+            }
+        };
+    }
+    else{
+        //localStorage.clear();
+        //$state.go('memo.dashboard');
+        console.log(localStorage['data_login']);
+        console.log("user no")
+    }
 
 }]);
 /**=========================================================
@@ -5316,6 +5407,18 @@ App.service('toggleStateService', ['$rootScope', function($rootScope) {
   };
 
 }]);
+/**
+ * Created by rizamasta on 5/31/15.
+ */
+App.service('urlConfig',function(){
+
+    this.baseUrl    = function(url){
+        return "hhttp://localhost/sma-pesisirtengah/admin-ng/#/page/"+url;
+    };
+    this.gateway    = function(url){
+        return "http://localhost/sma-api/"+url;
+    }
+});
 /**=========================================================
  * Module: utils.js
  * jQuery Utility functions library 
@@ -5537,16 +5640,6 @@ App.service('vectorMap', function() {
         }
   };
 });
-/**
- * Created by rizamasta on 5/10/15.
- */
-function base_url(url) {
-  return "http://localhost/memo/"+url;
-}
-function base_gateway(url){
-  return "http://localhost:1200/"+url;
-}
-
 // To run this code, edit file 
 // index.html or index.jade and change
 // html data-ng-app attribute from

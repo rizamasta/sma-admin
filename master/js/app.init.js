@@ -24,8 +24,8 @@ var App = angular.module('angle', ['ngRoute', 'ngAnimate', 'ngStorage', 'ngCooki
 
 
         $rootScope.app = {
-                name: 'MMS',
-                description: 'Metro Motor Dealer System',
+                name: 'SMA',
+                description: 'Admin Panel',
                 create:2015,
                 year: ((new Date()).getFullYear()),
                 layout: {

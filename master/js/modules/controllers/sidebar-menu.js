@@ -4,8 +4,8 @@
  * next to the current element (sibling)
  * Targeted elements must have [data-toggle="collapse-next"]
  =========================================================*/
-App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$location', '$http', '$timeout', 'APP_MEDIAQUERY',
-  function($rootScope, $scope, $state, $location, $http, $timeout, mq){
+App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$location', '$http', '$timeout', 'APP_MEDIAQUERY','urlConfig',
+  function($rootScope, $scope, $state, $location, $http, $timeout, mq,urlConfig){
 
     var currentState = $rootScope.$state.current.name;
     var $win = $(window);
@@ -54,16 +54,21 @@ App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$locatio
     };
 
     $scope.loadSidebarMenu = function() {
-
-      var menuJson = 'server/sidebar-menu.json',
-          menuURL  = menuJson + '?v=' + (new Date().getTime()); // jumps cache
-      $http.get(menuURL)
-        .success(function(items) {
-           $rootScope.menuItems = items;
-        })
-        .error(function(data, status, headers, config) {
-          alert('Failure loading menu');
-        });
+      //localStorage.clear();
+      //console.log(localStorage['data_login'].securityToken);
+      var data_login  = JSON.parse(localStorage['data_login']),
+          params      = {securityToken : data_login.securityToken};
+          $http({
+            method  :'POST',
+            url     : urlConfig.gateway('account/user-resource'),// +'?v=' + (new Date().getTime()),
+            data    : encoding_url(params),
+            headers  : {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).success(function (items) {
+            $rootScope.menuItems = items;
+          }).error(function() {
+                alert('Failure loading menu shit!');
+              });
+      
      };
 
      $scope.loadSidebarMenu();
