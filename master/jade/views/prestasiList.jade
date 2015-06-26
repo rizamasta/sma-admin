@@ -1,0 +1,31 @@
+//
+   Created by rizamasta on 6/15/15.
+h3 Prestasi pada {{app.name}}
+.row(ng-controller="prestasiController",ng-init="listPrestasi()")
+   toaster-container(toaster-options="{'position-class': 'toast-top-right', 'close-button':true}")
+   .panel.panel-info.panel-flat
+      .panel-heading.text-right
+         button.btn.btn-warning.btn-flat(ng-click="buttonTambah()") Tambah
+      .panel-body
+         .col-md-12
+            table.table.table-condensed.table-hover(width="80%")
+               thead
+                  tr.text-bold.panel-footer
+                     td(width="80") #
+                     td Nama Prestasi
+                     td Tahun
+                     td Status
+                     td(align="center") Pilihan
+               tbody
+                  tr(ng-repeat="list in viewList")
+                     td(width="80") {{index+1}}
+                     td
+                        a(href="#",tooltip="Lihat Detail Prestasi",tooltip-placement="right") {{list.nama_prestasi}}
+                     td {{list.tahun}}
+                     td {{list.status_prestasi}}
+                     td(align="center")
+                        a(href="")
+                           em.icon-pencil Edit
+                           |&nbsp;&nbsp;&nbsp;
+                        a(href="")
+                           em.icon-trash hapus

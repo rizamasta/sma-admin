@@ -38,7 +38,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         abstract: true,
         templateUrl: basepath('app.html'),
         controller: ('authController'),
-        resolve: resolveFor('fastclick', 'modernizr', 'icons', 'screenfull', 'animo', 'sparklines', 'slimscroll', 'classyloader', 'toaster', 'whirl')
+        resolve: resolveFor('fastclick', 'modernizr', 'icons', 'screenfull', 'animo', 'sparklines', 'slimscroll', 'classyloader', 'toaster', 'whirl','nicedit')
     })
     .state('page.dashboard', {
         url: '/dashboard',
@@ -47,6 +47,20 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         resolve: resolveFor('flot-chart','flot-chart-plugins'),
         controller:'NullController'
     })
+      .state('page.prestasi', {
+          url: '/prestasi',
+          title: 'Prestasi',
+          templateUrl: basepath('prestasiList.html'),
+          resolve: resolveFor('flot-chart','flot-chart-plugins'),
+          controller:'NullController'
+      })
+      .state('page.prestasiAdd', {
+          url: '/prestasiAdd',
+          title: 'Tambah Prestasi',
+          templateUrl: basepath('prestasiAdd.html'),
+          resolve: resolveFor('flot-chart','flot-chart-plugins','nicedit','parsley'),
+          controller:'NullController'
+      })
     .state('page.keamanan', {
           url: '/keamanan',
           title: 'Edit User',
@@ -57,24 +71,25 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     .state('login', {
         url: '/login',
         title: 'Login',
-        abstract:true,
+        resolve: resolveFor('icons','toaster', 'whirl'),
         templateUrl: 'app/pages/login.html',
-        esolve: resolveFor('icons','toaster', 'whirl'),
         controller: ('loginController')
 
     })
     .state('login.user', {
         url: '/user',
         title: 'Login',
+          resolve: resolveFor('parsley','icons','toaster', 'whirl'),
         templateUrl: 'app/pages/login.html',
-        controller: 'loginController',
-        resolve: resolveFor('parsley','icons','toaster', 'whirl')
+        controller: 'loginController'
+
     })
     .state('out', {
         url: '/out',
         title: 'Logout',
+          resolve: resolveFor('parsley','icons','toaster', 'whirl'),
         templateUrl: 'app/pages/logout.html',
-        controller: 'NullController'
+        controller: 'logoutController'
     })
     ;
 

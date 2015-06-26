@@ -85,7 +85,8 @@ App
       'fullcalendar':       ['vendor/fullcalendar/dist/fullcalendar.min.js',
                              'vendor/fullcalendar/dist/fullcalendar.css'],
       'gcal':               ['vendor/fullcalendar/dist/gcal.js'],
-      'blockui':               ['vendor/jquery.blockUI-2.7.0.js']
+      'blockui':               ['vendor/jquery.blockUI-2.7.0.js'],
+       'nicedit':['http://js.nicedit.com/nicEdit-latest.js']
     },
     // Angular based script (use the right module name)
     modules: [

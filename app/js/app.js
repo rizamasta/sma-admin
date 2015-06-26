@@ -81,7 +81,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         abstract: true,
         templateUrl: basepath('app.html'),
         controller: ('authController'),
-        resolve: resolveFor('fastclick', 'modernizr', 'icons', 'screenfull', 'animo', 'sparklines', 'slimscroll', 'classyloader', 'toaster', 'whirl')
+        resolve: resolveFor('fastclick', 'modernizr', 'icons', 'screenfull', 'animo', 'sparklines', 'slimscroll', 'classyloader', 'toaster', 'whirl','nicedit')
     })
     .state('page.dashboard', {
         url: '/dashboard',
@@ -90,6 +90,20 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         resolve: resolveFor('flot-chart','flot-chart-plugins'),
         controller:'NullController'
     })
+      .state('page.prestasi', {
+          url: '/prestasi',
+          title: 'Prestasi',
+          templateUrl: basepath('prestasiList.html'),
+          resolve: resolveFor('flot-chart','flot-chart-plugins'),
+          controller:'NullController'
+      })
+      .state('page.prestasiAdd', {
+          url: '/prestasiAdd',
+          title: 'Tambah Prestasi',
+          templateUrl: basepath('prestasiAdd.html'),
+          resolve: resolveFor('flot-chart','flot-chart-plugins','nicedit','parsley'),
+          controller:'NullController'
+      })
     .state('page.keamanan', {
           url: '/keamanan',
           title: 'Edit User',
@@ -100,24 +114,25 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     .state('login', {
         url: '/login',
         title: 'Login',
-        abstract:true,
+        resolve: resolveFor('icons','toaster', 'whirl'),
         templateUrl: 'app/pages/login.html',
-        esolve: resolveFor('icons','toaster', 'whirl'),
         controller: ('loginController')
 
     })
     .state('login.user', {
         url: '/user',
         title: 'Login',
+          resolve: resolveFor('parsley','icons','toaster', 'whirl'),
         templateUrl: 'app/pages/login.html',
-        controller: 'loginController',
-        resolve: resolveFor('parsley','icons','toaster', 'whirl')
+        controller: 'loginController'
+
     })
     .state('out', {
         url: '/out',
         title: 'Logout',
+          resolve: resolveFor('parsley','icons','toaster', 'whirl'),
         templateUrl: 'app/pages/logout.html',
-        controller: 'NullController'
+        controller: 'logoutController'
     })
     ;
 
@@ -281,7 +296,8 @@ App
       'fullcalendar':       ['vendor/fullcalendar/dist/fullcalendar.min.js',
                              'vendor/fullcalendar/dist/fullcalendar.css'],
       'gcal':               ['vendor/fullcalendar/dist/gcal.js'],
-      'blockui':               ['vendor/jquery.blockUI-2.7.0.js']
+      'blockui':               ['vendor/jquery.blockUI-2.7.0.js'],
+       'nicedit':['http://js.nicedit.com/nicEdit-latest.js']
     },
     // Angular based script (use the right module name)
     modules: [
@@ -2228,6 +2244,50 @@ App.controller('portletsController', [ '$scope', '$timeout', '$window', function
     $(this).css('min-height', "");
   }*/
 
+}]);
+/**
+ * Created by rizamasta on 6/15/15.
+ */
+App.controller('prestasiController',["$scope", "$state", "$http", "urlConfig", function($scope,$state,$http,urlConfig){
+
+    $scope.listPrestasi = function(){
+       try{
+           var data_user    = JSON.parse(localStorage['data_login']);
+           //console.log(data_user.responseData.username);
+           $scope.params    = {
+               username : data_user.responseData.username
+           };
+           //try
+           {
+               $http({
+                   method   : 'POST',
+                   url      : urlConfig.baseGateway('prestasi/view'),
+                   data     : encoding_url($scope.params),
+                   headers  : {'Content-Type':'application/x-www-form-urlencoded'}
+               })
+                   .success(function(response){
+                       if(response.message  ==  "success"){
+                           $scope.viewList = response.data;
+                       }
+                   })
+           }
+
+
+
+
+       }
+       catch(ex){
+           $state.go('out');
+       }
+   };
+    $scope.buttonTambah = function(){
+      //$state.go('page.prestasiAdd');
+        window.location.href = urlConfig.baseUrl('prestasiAdd');
+        window.location.reload();
+    };
+    $scope.simpanPrestasi   = function(){
+
+    }
 }]);
 /**=========================================================
  * Module: sidebar-menu.js
@@ -5412,11 +5472,14 @@ App.service('toggleStateService', ['$rootScope', function($rootScope) {
  */
 App.service('urlConfig',function(){
 
-    this.baseUrl    = function(url){
-        return "hhttp://localhost/sma-pesisirtengah/admin-ng/#/page/"+url;
+    this.baseUrl    = function(uri){
+        return "http://localhost/sma-pesisirtengah/admin-ng/#/page/"+uri;
     };
-    this.gateway    = function(url){
-        return "http://localhost/sma-api/"+url;
+    this.gateway    = function(uri){
+        return "http://localhost/sma-api/"+uri;
+    };
+    this.baseGateway= function(uri){
+        return "http://localhost/sma-pesisirtengah/api/index.php/"+uri;
     }
 });
 /**=========================================================
