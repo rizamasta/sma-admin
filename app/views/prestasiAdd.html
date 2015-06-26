@@ -1,0 +1,48 @@
+<!--Created by rizamasta on 5/12/15.-->
+<h3>Tambah Prestasi {{app.name}}</h3>
+<script>
+   bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+</script>
+<div class="panel panel-default panel-flat">
+   <div class="panel-body">
+      <div class="col-md-12">
+         <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+         <form ng-submit="simpanPrestasi()" novalidate="" validate-form="true" ng-controller="prestasiController">
+            <div class="panel panel-info">
+               <div class="panel-heading">Data Prestasi</div>
+               <div class="panel-body">
+                  <table width="100%" class="table-responsive">
+                     <tr>
+                        <td height="40">Nama Prestasi</td>
+                        <td>
+                           <div class="col-md-6">
+                              <input type="text" name="form.nama_prestasi" ng-model="formData.nama_prestasi" maxlength="50" ng-required="true" class="form-control" />
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td height="40">Tahun</td>
+                        <td>
+                           <div class="col-md-3">
+                              <input type="text" name="form.tahun" ng-model="formData.tahun" ng-required="true" maxlength="4" data-parsley-minlength="4" data-parsley-type="number" class="form-control" />
+                           </div>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td height="40">Keterangan</td>
+                        <td>
+                           <div class="col-md-12">
+                              <textarea style="resize:none;height:200px;width:700px;" ng-required="true"></textarea>
+                           </div>
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="panel-footer text-right">
+                  <input type="submit" value="Simpan" class="btn btn-info" />
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>

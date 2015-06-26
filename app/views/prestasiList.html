@@ -1,0 +1,41 @@
+<!--Created by rizamasta on 6/15/15.-->
+<h3>Prestasi pada {{app.name}}</h3>
+<div ng-controller="prestasiController" ng-init="listPrestasi()" class="row">
+   <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+   <div class="panel panel-info panel-flat">
+      <div class="panel-heading text-right">
+         <button ng-click="buttonTambah()" class="btn btn-warning btn-flat">Tambah</button>
+      </div>
+      <div class="panel-body">
+         <div class="col-md-12">
+            <table width="80%" class="table table-condensed table-hover">
+               <thead>
+                  <tr class="text-bold panel-footer">
+                     <td width="80">#</td>
+                     <td>Nama Prestasi</td>
+                     <td>Tahun</td>
+                     <td>Status</td>
+                     <td align="center">Pilihan</td>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr ng-repeat="list in viewList">
+                     <td width="80">{{index+1}}</td>
+                     <td><a href="#" tooltip="Lihat Detail Prestasi" tooltip-placement="right">{{list.nama_prestasi}}</a>
+                     </td>
+                     <td>{{list.tahun}}</td>
+                     <td>{{list.status_prestasi}}</td>
+                     <td align="center">
+                        <a href="">
+                           <em class="icon-pencil">Edit</em>&nbsp;&nbsp;&nbsp;</a>
+                        <a href="">
+                           <em class="icon-trash">hapus</em>
+                        </a>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
